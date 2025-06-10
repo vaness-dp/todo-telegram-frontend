@@ -23,13 +23,7 @@
 		"baseUrl": "src",
 		"paths": {
 			"@/ui/*": ["components/ui/*"],
-			"@/*": ["./*"],
-			"@/constants/*": ["constants/*"],
-			"@/config/*": ["config/*"],
-			"@/hooks/*": ["hooks/*"],
-			"@/providers/*": ["providers/*"],
-			"@/store/*": ["store/*"],
-			"@/types/*": ["types/*"]
+			"@/*": ["./*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
