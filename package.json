@@ -1,38 +1,41 @@
 {
-  "name": "todo-telegram-frontend",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@tanstack/react-query": "^5.80.6",
-    "@twa-dev/sdk": "^8.0.2",
-    "axios": "^1.9.0",
-    "clsx": "^2.1.1",
-    "framer-motion": "^12.16.0",
-    "lucide-react": "^0.513.0",
-    "next": "15.3.3",
-    "prettier": "^3.5.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-hook-form": "^7.57.0",
-    "zustand": "^5.0.5"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@tanstack/react-query-devtools": "^5.80.6",
-    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-    "@types/node": "^24.0.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.3",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+	"name": "todo-telegram-frontend",
+	"version": "0.1.0",
+	"description": "Frontend for Telegram Mini App Todo List",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"author": "Ivan Krylov",
+	"license": "MIT",
+	"dependencies": {
+		"@tanstack/react-query": "^5.80.6",
+		"@twa-dev/sdk": "^8.0.2",
+		"axios": "^1.9.0",
+		"clsx": "^2.1.1",
+		"framer-motion": "^12.16.0",
+		"lucide-react": "^0.513.0",
+		"next": "15.3.3",
+		"prettier": "^3.5.3",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-hook-form": "^7.57.0",
+		"zustand": "^5.0.5"
+	},
+	"devDependencies": {
+		"@eslint/eslintrc": "^3",
+		"@tailwindcss/postcss": "^4",
+		"@tanstack/react-query-devtools": "^5.80.6",
+		"@trivago/prettier-plugin-sort-imports": "^5.2.2",
+		"@types/node": "^24.0.0",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"eslint": "^9",
+		"eslint-config-next": "15.3.3",
+		"tailwindcss": "^4",
+		"typescript": "^5"
+	}
 }
