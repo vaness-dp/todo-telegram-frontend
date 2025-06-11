@@ -2,15 +2,16 @@
 
 import cn from 'clsx'
 import * as m from 'framer-motion/m'
-import { ListTodo } from 'lucide-react'
-import Link from 'next/link'
-import type { MouseEvent } from 'react'
+
+import { EmptyState } from '@/ui/EmptyState'
 
 import type { IProject } from '@/types/api.types'
 import type { MotionDivProps, MotionProps } from '@/types/motion.types'
 
-import { ProjectCard } from './ProjectCard'
-import { fadeIn, scale, staggerChildren } from '@/shared/animations'
+import { ProjectListItem } from './ProjectListItem'
+import { ProjectListSkeleton } from './ProjectListSkeleton'
+import { useFirstProjectLogic } from './useFirstProjectLogic'
+import { staggerChildren } from '@/shared/animations'
 
 interface Props {
 	projects: IProject[]
@@ -25,47 +26,42 @@ export function ProjectList({
 	onProjectDelete,
 	urlPattern,
 	className,
-	isLoading,
+	isLoading = false,
 	...props
 }: MotionProps<MotionDivProps> & Props) {
+	const { isFirstProjectCreated } = useFirstProjectLogic(projects, isLoading)
+
 	if (isLoading) {
 		return (
-			<m.div
-				className={cn('grid grid-cols-1 gap-4 sm:grid-cols-2', className)}
+			<ProjectListSkeleton
+				className={className}
 				{...props}
-				variants={staggerChildren}
-				initial="initial"
-				animate="animate"
-				exit="exit"
-			>
-				{[1, 2].map(i => (
-					<m.div
-						key={i}
-						variants={fadeIn}
-						transition={{ duration: 0.3 }}
-						className="h-[120px] rounded-2xl bg-bg-secondary/50 p-4"
-					/>
-				))}
-			</m.div>
+			/>
 		)
 	}
 
 	if (!projects?.length) {
 		return (
-			<m.div
-				variants={scale}
-				initial="initial"
-				animate="animate"
-				exit="exit"
-				transition={{ duration: 0.4 }}
-				className="flex flex-col items-center justify-center py-8 text-center"
-			>
-				<m.div variants={fadeIn}>
-					<ListTodo className="mb-4 h-12 w-12 text-text-secondary" />
-					<h3 className="text-lg font-semibold text-text-primary">No projects</h3>
-					<p className="mt-1 text-sm text-text-secondary">Create your first project</p>
-				</m.div>
-			</m.div>
+			<EmptyState
+				title="No projects"
+				description="Create your first project"
+			/>
+		)
+	}
+
+	if (isFirstProjectCreated) {
+		return (
+			<div className={cn('grid grid-cols-1 gap-4 sm:grid-cols-2', className)}>
+				{projects.map(project => (
+					<ProjectListItem
+						key={project._id}
+						project={project}
+						urlPattern={urlPattern}
+						onProjectDelete={onProjectDelete}
+						isStatic={true}
+					/>
+				))}
+			</div>
 		)
 	}
 
@@ -79,32 +75,13 @@ export function ProjectList({
 			exit="exit"
 		>
 			{projects.map(project => (
-				<m.div
+				<ProjectListItem
 					key={project._id}
-					variants={fadeIn}
-				>
-					<Link href={urlPattern.replace('[id]', project._id)}>
-						<ProjectCard
-							title={project.name}
-							description={project.description}
-							tasksCount={
-								project.tasksCount || {
-									total: project.tasks?.length || 0,
-									completed: project.tasks?.filter(task => task.completed).length || 0
-								}
-							}
-							onDelete={
-								onProjectDelete
-									? (e: MouseEvent) => {
-											e.preventDefault()
-											onProjectDelete(project._id)
-										}
-									: undefined
-							}
-							className="cursor-pointer"
-						/>
-					</Link>
-				</m.div>
+					project={project}
+					urlPattern={urlPattern}
+					onProjectDelete={onProjectDelete}
+					isStatic={false}
+				/>
 			))}
 		</m.div>
 	)
