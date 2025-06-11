@@ -41,8 +41,11 @@ export function Field({
 		>
 			<input
 				className={cn(
-					getInputStyles({ error: !isFocused ? error : undefined, fullWidth, className }),
-					'px-3 py-2'
+					getInputStyles({
+						error: !isFocused ? error : undefined,
+						fullWidth,
+						className: 'px-3 py-2'
+					})
 				)}
 				{...props}
 				{...registration}

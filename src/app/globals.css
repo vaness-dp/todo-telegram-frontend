@@ -1,17 +1,10 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html,
-body {
-	@apply bg-bg-primary min-h-screen text-text-primary;
+:root {
+	--font-suse: 'Suse', system-ui, sans-serif;
 
-	font-family: var(--font-suse);
-}
-
-button {
-	@apply cursor-pointer outline-none;
-}
-
-@theme {
 	--color-bg-primary: #0d0b12;
 	--color-bg-secondary: #15131c;
 	--color-bg-card: #1a1721;
@@ -54,19 +47,89 @@ button {
 	--transition-slow: 350ms ease;
 }
 
+html,
+body {
+	@apply bg-bg-primary min-h-screen text-text-primary;
+	font-family: var(--font-suse);
+}
+
+button {
+	@apply cursor-pointer outline-none;
+}
+
 @layer utilities {
 	.animate-fade-in {
 		animation: fadeIn 0.3s ease-out;
 	}
 
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-			transform: translateY(4px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
+	.bg-gradient-primary {
+		background: var(--color-gradient-primary);
+	}
+
+	.bg-gradient-background {
+		background: var(--color-gradient-background);
+	}
+
+	.shadow-card {
+		box-shadow: var(--shadow-card);
+	}
+
+	.shadow-sm {
+		box-shadow: var(--shadow-sm);
+	}
+
+	.shadow-md {
+		box-shadow: var(--shadow-md);
+	}
+
+	.shadow-lg {
+		box-shadow: var(--shadow-lg);
+	}
+
+	.transition-fast {
+		transition: var(--transition-fast);
+	}
+
+	.transition-normal {
+		transition: var(--transition-normal);
+	}
+
+	.transition-slow {
+		transition: var(--transition-slow);
+	}
+
+	.text-priority-low {
+		color: var(--color-priority-low);
+	}
+
+	.text-priority-medium {
+		color: var(--color-priority-medium);
+	}
+
+	.text-priority-high {
+		color: var(--color-priority-high);
+	}
+
+	.bg-priority-low {
+		background-color: var(--color-priority-low);
+	}
+
+	.bg-priority-medium {
+		background-color: var(--color-priority-medium);
+	}
+
+	.bg-priority-high {
+		background-color: var(--color-priority-high);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }

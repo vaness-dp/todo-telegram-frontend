@@ -1,12 +1,13 @@
 import cn from 'clsx'
 
-export const inputBaseStyles = [
-	'rounded-[var(--radius-md)] bg-bg-secondary text-text-primary',
-	'outline-none transition-all duration-[var(--transition-fast)]',
-	'border border-[color-mix(in_oklab,var(--color-accent-primary)_20%,transparent)]',
-	'hover:border-[color-mix(in_oklab,var(--color-accent-primary)_30%,transparent)]',
-	'focus:border-[color-mix(in_oklab,var(--color-accent-primary)_50%,transparent)]'
-] as const
+// Базовые стили как строка, а не массив
+const inputBaseStyles = cn(
+	'rounded-md bg-bg-secondary text-text-primary',
+	'outline-none transition-all duration-150',
+	'border border-accent-primary-20',
+	'hover:border-accent-primary-30',
+	'focus:border-accent-primary-50'
+)
 
 export const getInputStyles = ({
 	error,
@@ -16,7 +17,13 @@ export const getInputStyles = ({
 	error?: string
 	fullWidth?: boolean
 	className?: string
-}) => [...inputBaseStyles, error && 'border-priority-high', fullWidth && 'w-full', className]
+}) =>
+	cn(
+		inputBaseStyles, // Теперь это строка
+		error && 'border-priority-high',
+		fullWidth && 'w-full',
+		className
+	)
 
 export const getSelectStyles = ({
 	error,
@@ -30,13 +37,13 @@ export const getSelectStyles = ({
 	cn(getInputStyles({ error, fullWidth }), 'flex items-center justify-between px-3 py-2', className)
 
 export const SELECT_CONTENT_STYLES = cn(
-	'z-50 overflow-hidden rounded-xl bg-[#1F1F1F] p-1',
-	'shadow-[0_0_20px_5px_rgba(0,0,0,0.3)]'
+	'z-50 overflow-hidden rounded-xl bg-select-content p-1',
+	'shadow-select'
 )
 
 export const SELECT_ITEM_STYLES = cn(
 	'relative flex cursor-pointer select-none items-center rounded-lg px-3 py-2 text-sm outline-none',
-	'text-text-primary transition-colors',
-	'hover:bg-[rgba(255,255,255,0.1)] focus:bg-[rgba(255,255,255,0.1)]',
+	'text-text-primary transition-colors duration-150',
+	'hover:bg-select-item-hover focus:bg-select-item-hover',
 	'data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
 )

@@ -23,10 +23,11 @@ export function TextArea({
 			fullWidth={fullWidth}
 		>
 			<textarea
-				className={cn(
-					getInputStyles({ error, fullWidth, className }),
-					'min-h-[96px] px-4 py-2 resize-none'
-				)}
+				className={getInputStyles({
+					error,
+					fullWidth,
+					className: cn('min-h-[96px] px-4 py-2 resize-none', className)
+				})}
 				{...registration}
 				{...props}
 			/>
