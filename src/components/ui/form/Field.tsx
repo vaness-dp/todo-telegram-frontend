@@ -10,7 +10,7 @@ import { FormField } from './FormField'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement>, IField {}
 
-export function Field({
+export const Field = ({
 	label,
 	error,
 	registration,
@@ -19,7 +19,7 @@ export function Field({
 	onBlur,
 	className,
 	...props
-}: Props) {
+}: Props) => {
 	const [isFocused, setIsFocused] = useState(false)
 
 	const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -41,7 +41,7 @@ export function Field({
 			<input
 				className={cn(
 					'input-field',
-					error && 'input-error',
+					!isFocused && error && 'input-error',
 					fullWidth && 'input-full-width',
 					className
 				)}
