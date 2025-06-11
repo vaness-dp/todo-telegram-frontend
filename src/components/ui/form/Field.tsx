@@ -16,7 +16,6 @@ export function Field({
 	error,
 	registration,
 	fullWidth = true,
-	className,
 	onFocus,
 	onBlur,
 	...props
