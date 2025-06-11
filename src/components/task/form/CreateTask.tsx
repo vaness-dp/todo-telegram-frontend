@@ -1,14 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-
 import { Button } from '@/ui/button/Button'
 import { Field } from '@/ui/form/Field'
 import { Select } from '@/ui/form/Select'
 
 import type { CreateTaskDto } from '@/types/api.types'
 import { Priority } from '@/types/api.types'
+
+import { useCreateTaskForm } from './useCreateTaskForm'
 
 const priorityOptions = [
 	{ value: Priority.HIGH, label: 'High' },
@@ -24,21 +23,9 @@ interface Props {
 }
 
 export function CreateTask({ projectId, onSubmit, onCancel, isLoading }: Props) {
-	const { register, handleSubmit, formState, control, setFocus } = useForm<CreateTaskDto>({
-		defaultValues: {
-			title: '',
-			priority: Priority.MEDIUM,
-			projectId
-		},
-		mode: 'onSubmit'
-	})
-
-	useEffect(() => {
-		setFocus('title')
-	}, [setFocus])
-
-	const handleFormSubmit = handleSubmit(data => {
-		onSubmit(data)
+	const { register, formState, control, handleFormSubmit, Controller } = useCreateTaskForm({
+		projectId,
+		onSubmit
 	})
 
 	return (

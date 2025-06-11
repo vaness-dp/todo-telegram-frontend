@@ -2,15 +2,14 @@
 
 import * as m from 'framer-motion/m'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+
+import { Button } from '@/ui/button/Button'
+import { Field } from '@/ui/form/Field'
+import { TextArea } from '@/ui/form/TextArea'
 
 import type { CreateProjectDto } from '@/types/api.types'
 
-import { Button } from '../../ui/button/Button'
-import { Field } from '../../ui/form/Field'
-import { TextArea } from '../../ui/form/TextArea'
-
+import { useCreateProjectForm } from './useCreateProjectForm'
 import { fadeIn } from '@/shared/animations'
 
 interface Props {
@@ -21,22 +20,14 @@ interface Props {
 
 export function CreateProjectForm({ onSubmit, isLoading, userId }: Props) {
 	const router = useRouter()
-	const { register, handleSubmit, formState, setFocus } = useForm<CreateProjectDto>({
-		defaultValues: {
-			name: '',
-			description: '',
-			userId
-		},
-		mode: 'onSubmit'
+	const { register, formState, handleFormSubmit } = useCreateProjectForm({
+		userId,
+		onSubmit
 	})
-
-	useEffect(() => {
-		setFocus('name')
-	}, [setFocus])
 
 	return (
 		<m.form
-			onSubmit={handleSubmit(onSubmit)}
+			onSubmit={handleFormSubmit}
 			className="space-y-6"
 			variants={fadeIn}
 			initial="initial"
