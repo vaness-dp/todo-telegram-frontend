@@ -41,7 +41,6 @@ export const pageTransition = {
 	}
 }
 
-// Modal animations
 export const modalOverlay = {
 	initial: { opacity: 0 },
 	animate: { opacity: 1 },
@@ -56,7 +55,6 @@ export const modalContent = {
 	transition: { type: 'spring', duration: 0.3, bounce: 0.3 }
 }
 
-// Dropdown animations
 export const dropdownContent = {
 	initial: { opacity: 0, y: -10, scale: 0.95 },
 	animate: { opacity: 1, y: 0, scale: 1 },

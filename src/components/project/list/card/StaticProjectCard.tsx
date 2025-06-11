@@ -4,6 +4,8 @@ import cn from 'clsx'
 import { X } from 'lucide-react'
 import type { MouseEvent } from 'react'
 
+import { CARD_STYLES } from '@/styles/card.styles'
+
 interface Props {
 	title: string
 	description?: string
@@ -17,16 +19,7 @@ interface Props {
 
 export function StaticProjectCard({ title, description, tasksCount, onDelete, className }: Props) {
 	return (
-		<div
-			className={cn(
-				'relative rounded-2xl p-4',
-				'transition-all duration-[var(--transition-fast)]',
-				'bg-bg-secondary border border-[color-mix(in_oklab,var(--color-accent-primary)_20%,transparent)]',
-				'hover:border-[color-mix(in_oklab,var(--color-accent-primary)_30%,transparent)]',
-				'hover:scale-[1.02] active:scale-[0.98]',
-				className
-			)}
-		>
+		<div className={cn(CARD_STYLES, 'hover:scale-[1.02] active:scale-[0.98]', className)}>
 			<div className="mb-2 flex items-start justify-between gap-2">
 				<h3 className="text-lg font-semibold text-text-primary">{title}</h3>
 				{onDelete && (

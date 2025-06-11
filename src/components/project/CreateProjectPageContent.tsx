@@ -1,38 +1,17 @@
 'use client'
 
 import * as m from 'framer-motion/m'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 
 import { BackLink } from '@/ui/button/BackLink'
 
 import { ROUTES } from '@/config/routes.config'
 
-import { useCreateProject } from '@/hooks/projects/useCreateProject'
-
-import type { CreateProjectDto } from '@/types/api.types'
-
 import { CreateProjectForm } from './form/CreateProjectForm'
+import { useCreateProjectPage } from './useCreateProjectPage'
 import { pageTransition } from '@/shared/animations'
 
-// TODO: Заменить на реальный ID пользователя из Telegram
-const TEMP_USER_ID = '65f5c5f6f5c5f6f5c5f6f5c5'
-
 export function CreateProjectPageContent() {
-	const router = useRouter()
-	const { mutate: createProject, isPending } = useCreateProject()
-	const [error, setError] = useState<string | null>(null)
-
-	const handleSubmit = (data: CreateProjectDto) => {
-		setError(null)
-		createProject(data, {
-			onSuccess: () => router.push(ROUTES.PROJECTS),
-			onError: error => {
-				console.error('Failed to create project:', error)
-				setError('Failed to create project. Please try again.')
-			}
-		})
-	}
+	const { handleSubmit, isLoading, error, userId } = useCreateProjectPage()
 
 	return (
 		<m.div
@@ -56,8 +35,8 @@ export function CreateProjectPageContent() {
 
 			<CreateProjectForm
 				onSubmit={handleSubmit}
-				isLoading={isPending}
-				userId={TEMP_USER_ID}
+				isLoading={isLoading}
+				userId={userId}
 			/>
 		</m.div>
 	)

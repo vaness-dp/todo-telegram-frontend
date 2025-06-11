@@ -2,11 +2,11 @@
 
 import { useForm } from 'react-hook-form'
 
-import type { CreateProjectDto } from '@/types/api.types'
+import { Button } from '@/ui/button/Button'
+import { Field } from '@/ui/form/Field'
+import { TextArea } from '@/ui/form/TextArea'
 
-import { Button } from '../ui/button/Button'
-import { Field } from '../ui/form/Field'
-import { TextArea } from '../ui/form/TextArea'
+import type { CreateProjectDto } from '@/types/api.types'
 
 interface Props {
 	onSubmit: (data: CreateProjectDto) => void

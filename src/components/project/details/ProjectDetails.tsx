@@ -36,7 +36,6 @@ export function ProjectDetails({ projectId }: ProjectDetailsProps) {
 				To projects
 			</BackLink>
 
-			{/* Project info */}
 			<div className="mb-12">
 				<h1 className="text-2xl font-bold text-text-primary">{project.name}</h1>
 				{project.description && (
@@ -44,7 +43,6 @@ export function ProjectDetails({ projectId }: ProjectDetailsProps) {
 				)}
 			</div>
 
-			{/* Tasks section */}
 			<div>
 				<div className="mb-6 flex items-center justify-between">
 					<h2 className="text-xl font-semibold text-text-primary">Tasks</h2>

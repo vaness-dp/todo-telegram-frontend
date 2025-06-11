@@ -4,12 +4,12 @@ import cn from 'clsx'
 import type { InputHTMLAttributes } from 'react'
 import { useState } from 'react'
 
-import type { BaseFieldProps } from '@/types/form.types'
+import type { IField } from '@/types/form.types'
 
 import { FormField } from './FormField'
 import { getInputStyles } from '@/styles/form.styles'
 
-interface Props extends InputHTMLAttributes<HTMLInputElement>, BaseFieldProps {}
+interface Props extends InputHTMLAttributes<HTMLInputElement>, IField {}
 
 export function Field({
 	label,

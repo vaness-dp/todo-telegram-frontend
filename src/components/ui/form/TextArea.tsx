@@ -1,14 +1,12 @@
-'use client'
-
 import cn from 'clsx'
 import type { TextareaHTMLAttributes } from 'react'
 
-import type { BaseFieldProps } from '@/types/form.types'
+import type { IField } from '@/types/form.types'
 
 import { FormField } from './FormField'
 import { getInputStyles } from '@/styles/form.styles'
 
-interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement>, BaseFieldProps {}
+interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement>, IField {}
 
 export function TextArea({
 	label,

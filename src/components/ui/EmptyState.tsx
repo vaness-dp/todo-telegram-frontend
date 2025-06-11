@@ -1,5 +1,3 @@
-'use client'
-
 import cn from 'clsx'
 import * as m from 'framer-motion/m'
 import { ListTodo } from 'lucide-react'

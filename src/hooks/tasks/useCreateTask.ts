@@ -16,10 +16,8 @@ export function useCreateTask() {
 			return response.data
 		},
 		onSuccess: task => {
-			// Обновляем список задач проекта
 			queryClient.invalidateQueries({ queryKey: taskKeys.list(task.projectId) })
 
-			// Обновляем список проектов
 			queryClient.setQueriesData<IProject[]>({ queryKey: projectKeys.lists() }, projects => {
 				if (!projects) return projects
 

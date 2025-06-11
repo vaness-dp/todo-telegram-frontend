@@ -20,13 +20,10 @@ export function useToggleTask() {
 			return response.data
 		},
 		onMutate: async ({ id, projectId }) => {
-			// Отменяем все текущие запросы для этого списка задач
 			await queryClient.cancelQueries({ queryKey: taskKeys.list(projectId) })
 
-			// Получаем предыдущее состояние
 			const previousTasks = queryClient.getQueryData<ITask[]>(taskKeys.list(projectId))
 
-			// Оптимистично обновляем UI
 			if (previousTasks) {
 				const updatedTasks = previousTasks.map(task =>
 					task._id === id ? { ...task, completed: !task.completed } : task
@@ -34,7 +31,6 @@ export function useToggleTask() {
 
 				queryClient.setQueryData<ITask[]>(taskKeys.list(projectId), updatedTasks)
 
-				// Обновляем список проектов
 				queryClient.setQueriesData<IProject[]>({ queryKey: projectKeys.lists() }, projects => {
 					if (!projects) return projects
 
@@ -59,17 +55,14 @@ export function useToggleTask() {
 				})
 			}
 
-			// Возвращаем контекст с предыдущим состоянием
 			return { previousTasks }
 		},
-		onError: (err, { projectId }, context) => {
-			// При ошибке возвращаем предыдущее состояние
+		onError: (_err, { projectId }, context) => {
 			if (context?.previousTasks) {
 				queryClient.setQueryData(taskKeys.list(projectId), context.previousTasks)
 			}
 		},
 		onSettled: (_, __, { projectId }) => {
-			// В любом случае инвалидируем кеш для обновления данных
 			queryClient.invalidateQueries({ queryKey: taskKeys.list(projectId) })
 			queryClient.invalidateQueries({ queryKey: projectKeys.lists() })
 		}

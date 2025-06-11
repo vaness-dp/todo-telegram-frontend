@@ -8,6 +8,7 @@ import type { MouseEvent } from 'react'
 import type { MotionDivProps, MotionProps } from '@/types/motion.types'
 
 import { scale } from '@/shared/animations'
+import { CARD_STYLES } from '@/styles/card.styles'
 
 interface Props {
 	title: string
@@ -30,22 +31,12 @@ export function ProjectCard({
 }: MotionProps<MotionDivProps> & Props) {
 	return (
 		<m.div
-			className={cn(
-				// Base styles
-				'relative rounded-2xl p-4',
-				'transition-all duration-[var(--transition-fast)]',
-				// Background and border
-				'bg-bg-secondary border border-[color-mix(in_oklab,var(--color-accent-primary)_20%,transparent)]',
-				// Hover state
-				'hover:border-[color-mix(in_oklab,var(--color-accent-primary)_30%,transparent)]',
-				className
-			)}
+			className={cn(CARD_STYLES, className)}
 			{...props}
 			variants={scale}
 			whileHover={{ scale: 1.02 }}
 			whileTap={{ scale: 0.98 }}
 		>
-			{/* Header */}
 			<div className="mb-2 flex items-start justify-between gap-2">
 				<m.h3
 					className="text-lg font-semibold text-text-primary"
@@ -65,7 +56,6 @@ export function ProjectCard({
 				)}
 			</div>
 
-			{/* Description */}
 			{description && (
 				<m.p
 					className="mb-3 text-sm text-text-secondary line-clamp-2"
@@ -75,7 +65,6 @@ export function ProjectCard({
 				</m.p>
 			)}
 
-			{/* Tasks count */}
 			<m.div
 				className="flex items-center gap-2 text-sm text-text-secondary"
 				layout

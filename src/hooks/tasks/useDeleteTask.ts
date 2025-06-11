@@ -16,10 +16,8 @@ export function useDeleteTask() {
 			return response.data
 		},
 		onSuccess: (_, { id, projectId }) => {
-			// Обновляем список задач проекта
 			queryClient.invalidateQueries({ queryKey: taskKeys.list(projectId) })
 
-			// Обновляем список проектов
 			queryClient.setQueriesData<IProject[]>({ queryKey: projectKeys.lists() }, projects => {
 				if (!projects) return projects
 
