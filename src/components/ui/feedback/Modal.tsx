@@ -41,7 +41,7 @@ export function Modal({ isOpen, onClose, title, children }: Props) {
 			{...modalOverlay}
 		>
 			<m.div
-				className="w-full max-w-75 rounded-2xl bg-bg-secondary p-6"
+				className="w-full max-w-[300px] rounded-2xl bg-bg-secondary p-6"
 				{...modalContent}
 			>
 				<div className="mb-6 flex items-center justify-between">
