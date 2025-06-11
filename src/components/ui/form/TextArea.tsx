@@ -4,7 +4,6 @@ import type { TextareaHTMLAttributes } from 'react'
 import type { IField } from '@/types/form.types'
 
 import { FormField } from './FormField'
-import { getInputStyles } from '@/styles/form.styles'
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement>, IField {}
 
@@ -23,11 +22,12 @@ export function TextArea({
 			fullWidth={fullWidth}
 		>
 			<textarea
-				className={getInputStyles({
-					error,
-					fullWidth,
-					className: cn('min-h-[96px] px-4 py-2 resize-none', className)
-				})}
+				className={cn(
+					'input-textarea',
+					error && 'input-error',
+					fullWidth && 'input-full-width',
+					className
+				)}
 				{...registration}
 				{...props}
 			/>

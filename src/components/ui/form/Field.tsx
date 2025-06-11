@@ -7,7 +7,6 @@ import { useState } from 'react'
 import type { IField } from '@/types/form.types'
 
 import { FormField } from './FormField'
-import { getInputStyles } from '@/styles/form.styles'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement>, IField {}
 
@@ -41,12 +40,10 @@ export function Field({
 		>
 			<input
 				className={cn(
-					getInputStyles({
-						error: !isFocused ? error : undefined,
-						fullWidth,
-						className
-					}),
-					'px-3 py-2'
+					'input-field',
+					error && 'input-error',
+					fullWidth && 'input-full-width',
+					className
 				)}
 				{...props}
 				{...registration}

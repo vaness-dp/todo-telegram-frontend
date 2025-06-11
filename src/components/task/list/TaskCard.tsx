@@ -8,7 +8,6 @@ import { Priority } from '@/types/api.types'
 import type { MotionDivProps, MotionProps } from '@/types/motion.types'
 
 import { scale } from '@/shared/animations'
-import { CARD_STYLES } from '@/styles/card.styles'
 
 interface Props {
 	title: string
@@ -30,7 +29,7 @@ export function TaskCard({
 }: MotionProps<MotionDivProps> & Props) {
 	return (
 		<m.div
-			className={cn(CARD_STYLES, className)}
+			className={cn('card-base', className)}
 			{...props}
 			variants={scale}
 			whileHover={{ scale: 1.02 }}

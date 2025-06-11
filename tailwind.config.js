@@ -74,5 +74,42 @@ module.exports = {
 			}
 		}
 	},
-	plugins: []
+	plugins: [
+		function ({ addComponents }) {
+			addComponents({
+				'.input-base': {
+					'@apply rounded-md bg-bg-secondary text-text-primary outline-none transition-all duration-150 border border-accent-primary-20 hover:border-accent-primary-30 focus:border-accent-primary-50':
+						{}
+				},
+				'.input-field': {
+					'@apply input-base px-3 py-2': {}
+				},
+				'.input-textarea': {
+					'@apply input-base min-h-[96px] px-4 py-2 resize-none': {}
+				},
+				'.input-select': {
+					'@apply input-base flex items-center justify-between px-3 py-2': {}
+				},
+				'.input-error': {
+					'@apply border-priority-high': {}
+				},
+				'.input-full-width': {
+					'@apply w-full': {}
+				},
+
+				'.select-content': {
+					'@apply z-50 overflow-hidden rounded-xl bg-select-content p-1 shadow-select': {}
+				},
+				'.select-item': {
+					'@apply relative flex cursor-pointer select-none items-center rounded-lg px-3 py-2 text-sm outline-none text-text-primary transition-colors duration-150 hover:bg-select-item-hover focus:bg-select-item-hover data-[disabled]:pointer-events-none data-[disabled]:opacity-50':
+						{}
+				},
+
+				'.card-base': {
+					'@apply relative rounded-2xl p-4 transition-all duration-150 bg-bg-secondary border border-accent-primary-20 hover:border-accent-primary-30':
+						{}
+				}
+			})
+		}
+	]
 }

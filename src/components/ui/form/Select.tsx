@@ -1,6 +1,7 @@
 'use client'
 
 import * as SelectPrimitive from '@radix-ui/react-select'
+import cn from 'clsx'
 import * as m from 'framer-motion/m'
 import { ChevronDown } from 'lucide-react'
 import type { ComponentPropsWithoutRef } from 'react'
@@ -10,7 +11,6 @@ import type { IField } from '@/types/form.types'
 
 import { FormField } from './FormField'
 import { dropdownContent, dropdownItem, rotateAnimation } from '@/shared/animations'
-import { SELECT_CONTENT_STYLES, SELECT_ITEM_STYLES, getSelectStyles } from '@/styles/form.styles'
 
 interface Props
 	extends Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, 'value' | 'onValueChange'>,
@@ -59,7 +59,14 @@ export function Select({
 				name={name}
 				{...props}
 			>
-				<SelectPrimitive.Trigger className={getSelectStyles({ error, fullWidth, className })}>
+				<SelectPrimitive.Trigger
+					className={cn(
+						'input-select',
+						error && 'input-error',
+						fullWidth && 'input-full-width',
+						className
+					)}
+				>
 					<SelectPrimitive.Value placeholder={placeholder} />
 					<SelectPrimitive.Icon asChild>
 						<m.div {...rotateAnimation(isOpen)}>
@@ -70,7 +77,7 @@ export function Select({
 
 				<SelectPrimitive.Portal>
 					<SelectPrimitive.Content
-						className={SELECT_CONTENT_STYLES}
+						className="select-content"
 						position="popper"
 						sideOffset={8}
 						asChild
@@ -81,7 +88,7 @@ export function Select({
 									<SelectPrimitive.Item
 										key={option.value}
 										value={option.value}
-										className={SELECT_ITEM_STYLES}
+										className="select-item"
 										asChild
 									>
 										<m.div {...dropdownItem(index)}>
