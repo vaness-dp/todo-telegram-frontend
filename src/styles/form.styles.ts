@@ -1,13 +1,7 @@
 import cn from 'clsx'
 
-// Базовые стили как строка, а не массив
-const inputBaseStyles = cn(
-	'rounded-md bg-bg-secondary text-text-primary',
-	'outline-none transition-all duration-150',
-	'border border-accent-primary-20',
-	'hover:border-accent-primary-30',
-	'focus:border-accent-primary-50'
-)
+const inputBaseStyles =
+	'rounded-md bg-bg-secondary text-text-primary outline-none transition-all duration-150 border border-accent-primary-20 hover:border-accent-primary-30 focus:border-accent-primary-50'
 
 export const getInputStyles = ({
 	error,
@@ -17,13 +11,7 @@ export const getInputStyles = ({
 	error?: string
 	fullWidth?: boolean
 	className?: string
-}) =>
-	cn(
-		inputBaseStyles, // Теперь это строка
-		error && 'border-priority-high',
-		fullWidth && 'w-full',
-		className
-	)
+}) => cn(inputBaseStyles, error && 'border-priority-high', fullWidth && 'w-full', className)
 
 export const getSelectStyles = ({
 	error,

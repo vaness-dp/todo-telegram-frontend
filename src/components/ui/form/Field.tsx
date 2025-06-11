@@ -18,6 +18,7 @@ export function Field({
 	fullWidth = true,
 	onFocus,
 	onBlur,
+	className,
 	...props
 }: Props) {
 	const [isFocused, setIsFocused] = useState(false)
@@ -43,8 +44,9 @@ export function Field({
 					getInputStyles({
 						error: !isFocused ? error : undefined,
 						fullWidth,
-						className: 'px-3 py-2'
-					})
+						className
+					}),
+					'px-3 py-2'
 				)}
 				{...props}
 				{...registration}
