@@ -2,13 +2,15 @@
 
 import cn from 'clsx'
 import * as m from 'framer-motion/m'
-import { ListTodo } from 'lucide-react'
+
+import { EmptyState } from '@/ui/EmptyState'
+import { LoadingSkeleton } from '@/ui/LoadingSkeleton'
 
 import type { ITask } from '@/types/api.types'
 import type { MotionDivProps, MotionProps } from '@/types/motion.types'
 
 import { TaskCard } from './TaskCard'
-import { fadeIn, scale, staggerChildren } from '@/shared/animations'
+import { fadeIn, staggerChildren } from '@/shared/animations'
 
 interface Props {
 	tasks: ITask[]
@@ -28,42 +30,20 @@ export function TaskList({
 }: MotionProps<MotionDivProps> & Props) {
 	if (isLoading) {
 		return (
-			<m.div
-				className={cn('space-y-4', className)}
+			<LoadingSkeleton
+				count={3}
+				className="space-y-4"
 				{...props}
-				variants={staggerChildren}
-				initial="initial"
-				animate="animate"
-				exit="exit"
-			>
-				{[1, 2, 3].map(i => (
-					<m.div
-						key={i}
-						variants={fadeIn}
-						transition={{ duration: 0.3 }}
-						className="h-[120px] rounded-2xl bg-bg-secondary/50 p-4"
-					/>
-				))}
-			</m.div>
+			/>
 		)
 	}
 
 	if (!tasks?.length) {
 		return (
-			<m.div
-				variants={scale}
-				initial="initial"
-				animate="animate"
-				exit="exit"
-				transition={{ duration: 0.4 }}
-				className="flex flex-col items-center justify-center py-8 text-center"
-			>
-				<m.div variants={fadeIn}>
-					<ListTodo className="mb-4 h-12 w-12 text-text-secondary" />
-					<h3 className="text-lg font-semibold text-text-primary">No tasks</h3>
-					<p className="mt-1 text-sm text-text-secondary">Create your first task</p>
-				</m.div>
-			</m.div>
+			<EmptyState
+				title="No tasks"
+				description="Create your first task"
+			/>
 		)
 	}
 

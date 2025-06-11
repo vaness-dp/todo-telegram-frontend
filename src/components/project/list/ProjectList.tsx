@@ -4,12 +4,12 @@ import cn from 'clsx'
 import * as m from 'framer-motion/m'
 
 import { EmptyState } from '@/ui/EmptyState'
+import { LoadingSkeleton } from '@/ui/LoadingSkeleton'
 
 import type { IProject } from '@/types/api.types'
 import type { MotionDivProps, MotionProps } from '@/types/motion.types'
 
 import { ProjectListItem } from './ProjectListItem'
-import { ProjectListSkeleton } from './ProjectListSkeleton'
 import { useFirstProjectLogic } from './useFirstProjectLogic'
 import { staggerChildren } from '@/shared/animations'
 
@@ -33,8 +33,9 @@ export function ProjectList({
 
 	if (isLoading) {
 		return (
-			<ProjectListSkeleton
-				className={className}
+			<LoadingSkeleton
+				count={2}
+				className="grid grid-cols-1 gap-4 sm:grid-cols-2"
 				{...props}
 			/>
 		)

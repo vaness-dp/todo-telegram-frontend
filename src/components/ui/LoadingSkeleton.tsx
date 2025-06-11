@@ -1,5 +1,3 @@
-'use client'
-
 import cn from 'clsx'
 import * as m from 'framer-motion/m'
 
@@ -7,29 +5,33 @@ import type { MotionDivProps, MotionProps } from '@/types/motion.types'
 
 import { fadeIn, staggerChildren } from '@/shared/animations'
 
-interface ProjectListSkeletonProps {
+interface LoadingSkeletonProps {
+	count?: number
 	className?: string
+	itemClassName?: string
 }
 
-export function ProjectListSkeleton({
+export function LoadingSkeleton({
+	count = 2,
 	className,
+	itemClassName,
 	...props
-}: MotionProps<MotionDivProps> & ProjectListSkeletonProps) {
+}: MotionProps<MotionDivProps> & LoadingSkeletonProps) {
 	return (
 		<m.div
-			className={cn('grid grid-cols-1 gap-4 sm:grid-cols-2', className)}
+			className={className}
 			{...props}
 			variants={staggerChildren}
 			initial="initial"
 			animate="animate"
 			exit="exit"
 		>
-			{[1, 2].map(i => (
+			{Array.from({ length: count }, (_, i) => (
 				<m.div
 					key={i}
 					variants={fadeIn}
 					transition={{ duration: 0.3 }}
-					className="h-[120px] rounded-2xl bg-bg-secondary/50 p-4"
+					className={cn('rounded-2xl bg-bg-secondary/50 p-4', itemClassName)}
 				/>
 			))}
 		</m.div>

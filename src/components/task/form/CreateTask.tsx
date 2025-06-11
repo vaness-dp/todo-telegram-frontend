@@ -3,12 +3,12 @@
 import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
+import { Button } from '@/ui/button/Button'
+import { Field } from '@/ui/form/Field'
+import { Select } from '@/ui/form/Select'
+
 import type { CreateTaskDto } from '@/types/api.types'
 import { Priority } from '@/types/api.types'
-
-import { Button } from '../../ui/button/Button'
-import { Field } from '../../ui/form/Field'
-import { Select } from '../../ui/form/Select'
 
 const priorityOptions = [
 	{ value: Priority.HIGH, label: 'High' },
@@ -30,7 +30,7 @@ export function CreateTask({ projectId, onSubmit, onCancel, isLoading }: Props) 
 			priority: Priority.MEDIUM,
 			projectId
 		},
-		mode: 'onBlur'
+		mode: 'onSubmit'
 	})
 
 	useEffect(() => {
