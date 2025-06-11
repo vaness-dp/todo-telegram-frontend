@@ -8,7 +8,7 @@ import { BackLink } from '@/ui/button/BackLink'
 
 import { ROUTES } from '@/config/routes.config'
 
-import { useCreateProject } from '@/hooks/useProjects'
+import { useCreateProject } from '@/hooks/projects/useCreateProject'
 
 import type { CreateProjectDto } from '@/types/api.types'
 

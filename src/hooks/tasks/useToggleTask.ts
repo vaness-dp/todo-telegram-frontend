@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import type { IProject, ITask } from '@/types/api.types'
 
-import { projectKeys } from '../useProjects'
+import { projectKeys } from '../projects/keys'
 
 import { taskKeys } from './keys'
 import { taskService } from '@/services/task.service'

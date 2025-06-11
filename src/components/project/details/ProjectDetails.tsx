@@ -10,7 +10,7 @@ import { Button } from '@/ui/button/Button'
 
 import { ROUTES } from '@/config/routes.config'
 
-import { useProject } from '@/hooks/useProjects'
+import { useProject } from '@/hooks/projects/useProject'
 import { useDeleteTask, useGetTasks, useToggleTask } from '@/hooks/useTasks'
 
 interface ProjectDetailsProps {

@@ -10,7 +10,8 @@ import { Button } from '@/ui/button/Button'
 
 import { ROUTES } from '@/config/routes.config'
 
-import { useDeleteProject, useProjects } from '@/hooks/useProjects'
+import { useDeleteProject } from '@/hooks/projects/useDeleteProject'
+import { useProjects } from '@/hooks/projects/useProjects'
 
 export function ProjectsContent() {
 	const router = useRouter()
