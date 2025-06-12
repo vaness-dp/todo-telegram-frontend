@@ -8,7 +8,9 @@ import { projectService } from '@/services/project.service'
 export function useCreateProject() {
 	const queryClient = useQueryClient()
 
-	return useMutation<IProject, Error, CreateProjectDto>({
+	type Context = { previousProjects?: IProject[] }
+
+	return useMutation<IProject, Error, CreateProjectDto, Context>({
 		mutationFn: async (data: CreateProjectDto) => {
 			const { data: response } = await projectService.create(data)
 			return {
@@ -20,7 +22,33 @@ export function useCreateProject() {
 				}
 			}
 		},
-		onSuccess: () => {
+		onMutate: async newProject => {
+			await queryClient.cancelQueries({ queryKey: projectKeys.lists() })
+			const previousProjects = queryClient.getQueryData<IProject[]>(projectKeys.lists())
+			const now = new Date().toISOString()
+			const optimisticProject: IProject = {
+				_id: Math.random().toString(36).slice(2),
+				id: Math.random().toString(36).slice(2),
+				name: newProject.name,
+				description: newProject.description,
+				tasks: [],
+				tasksCount: { total: 0, completed: 0 },
+				userId: newProject.userId,
+				createdAt: now,
+				updatedAt: now
+			}
+			queryClient.setQueryData<IProject[]>(projectKeys.lists(), old => [
+				optimisticProject,
+				...(old || [])
+			])
+			return { previousProjects }
+		},
+		onError: (_err, _newProject, context) => {
+			if (context?.previousProjects) {
+				queryClient.setQueryData(projectKeys.lists(), context.previousProjects)
+			}
+		},
+		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey: projectKeys.lists() })
 		}
 	})
