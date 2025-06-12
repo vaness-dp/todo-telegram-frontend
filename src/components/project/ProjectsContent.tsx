@@ -1,17 +1,29 @@
 'use client'
 
 import { Plus } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import { ProjectList } from '@/components/project/list/ProjectList'
-
+import { LoadingSkeleton } from '@/ui/LoadingSkeleton'
 import { Button } from '@/ui/button/Button'
 
 import { ROUTES } from '@/config/routes.config'
 
 import { useDeleteProject } from '@/hooks/projects/useDeleteProject'
 import { useProjects } from '@/hooks/projects/useProjects'
+
+const ProjectList = dynamic(
+	() => import('@/components/project/list/ProjectList').then(m => m.ProjectList),
+	{
+		loading: () => (
+			<LoadingSkeleton
+				count={2}
+				className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2"
+			/>
+		)
+	}
+)
 
 export function ProjectsContent() {
 	const router = useRouter()
@@ -33,7 +45,7 @@ export function ProjectsContent() {
 			<ProjectList
 				projects={projects}
 				urlPattern={ROUTES.PROJECT('[id]')}
-				onProjectDelete={id => {
+				onProjectDelete={(id: string) => {
 					deleteProject(id, {
 						onSuccess: () => router.push(ROUTES.PROJECTS)
 					})
