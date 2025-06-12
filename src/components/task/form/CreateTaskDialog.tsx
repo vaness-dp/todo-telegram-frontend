@@ -2,7 +2,7 @@
 
 import { type ReactNode, useState } from 'react'
 
-import { useCreateTask } from '@/hooks/useTasks'
+import { useCreateTask } from '@/hooks/tasks/useCreateTask'
 
 import { Modal } from '../../ui/feedback/Modal'
 
@@ -35,9 +35,8 @@ export function CreateTaskDialog({ children, projectId }: Props) {
 				<CreateTask
 					projectId={projectId}
 					onSubmit={data => {
-						createTask(data, {
-							onSuccess: () => setIsOpen(false)
-						})
+						setIsOpen(false)
+						createTask(data)
 					}}
 					onCancel={() => setIsOpen(false)}
 					isLoading={isPending}
