@@ -14,9 +14,11 @@ export const useFirstProjectLogic = (projects: IProject[], isLoading: boolean) =
 	}, [isLoading, projects?.length])
 
 	const isFirstProjectCreated = previousLengthRef.current === 0 && projects.length === 1
+	const shouldFadeInFirst = isFirstProjectCreated && hasInitializedRef.current
 
 	return {
 		isFirstProjectCreated,
-		previousLength: previousLengthRef.current
+		previousLength: previousLengthRef.current,
+		shouldFadeInFirst
 	}
 }
