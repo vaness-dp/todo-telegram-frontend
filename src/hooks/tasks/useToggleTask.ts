@@ -9,6 +9,7 @@ import { taskService } from '@/services/task.service'
 
 interface ToggleTaskContext {
 	previousTasks: ITask[] | undefined
+	previousProjects: IProject[] | undefined
 }
 
 export function useToggleTask() {
@@ -21,8 +22,10 @@ export function useToggleTask() {
 		},
 		onMutate: async ({ id, projectId }) => {
 			await queryClient.cancelQueries({ queryKey: taskKeys.list(projectId) })
+			await queryClient.cancelQueries({ queryKey: projectKeys.lists() })
 
 			const previousTasks = queryClient.getQueryData<ITask[]>(taskKeys.list(projectId))
+			const previousProjects = queryClient.getQueryData<IProject[]>(projectKeys.lists())
 
 			if (previousTasks) {
 				const updatedTasks = previousTasks.map(task =>
@@ -31,10 +34,8 @@ export function useToggleTask() {
 
 				queryClient.setQueryData<ITask[]>(taskKeys.list(projectId), updatedTasks)
 
-				queryClient.setQueriesData<IProject[]>({ queryKey: projectKeys.lists() }, projects => {
-					if (!projects) return projects
-
-					return projects.map(project => {
+				if (previousProjects) {
+					const updatedProjects = previousProjects.map(project => {
 						if (project._id === projectId) {
 							const updatedProjectTasks =
 								project.tasks?.map(task =>
@@ -52,14 +53,19 @@ export function useToggleTask() {
 						}
 						return project
 					})
-				})
+
+					queryClient.setQueryData<IProject[]>(projectKeys.lists(), updatedProjects)
+				}
 			}
 
-			return { previousTasks }
+			return { previousTasks, previousProjects }
 		},
 		onError: (_err, { projectId }, context) => {
 			if (context?.previousTasks) {
 				queryClient.setQueryData(taskKeys.list(projectId), context.previousTasks)
+			}
+			if (context?.previousProjects) {
+				queryClient.setQueryData(projectKeys.lists(), context.previousProjects)
 			}
 		},
 		onSettled: (_, __, { projectId }) => {

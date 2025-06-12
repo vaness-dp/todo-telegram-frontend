@@ -16,8 +16,10 @@ export function Providers({ children }: Props) {
 				defaultOptions: {
 					queries: {
 						refetchOnWindowFocus: false,
-						staleTime: 0,
-						retry: 1
+						staleTime: 1000 * 60 * 5, // 5 минут
+						gcTime: 1000 * 60 * 30, // 30 минут
+						retry: 1,
+						networkMode: 'offlineFirst'
 					},
 					mutations: {
 						retry: 1
