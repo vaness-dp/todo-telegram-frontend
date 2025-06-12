@@ -1,7 +1,8 @@
-import WebApp from '@twa-dev/sdk'
-import { type ReactNode, createContext, useContext, useEffect } from 'react'
+'use client'
 
-interface WebAppUser {
+import { type ReactNode, createContext, useContext, useEffect, useState } from 'react'
+
+interface IWebAppUser {
 	id: number
 	first_name: string
 	last_name?: string
@@ -9,12 +10,27 @@ interface WebAppUser {
 	language_code?: string
 }
 
-interface TelegramContextType {
-	user: WebAppUser | null
+interface ITelegramContext {
+	user: IWebAppUser | null
 	initData: string
 }
 
-const TelegramContext = createContext<TelegramContextType>({
+interface IWebApp {
+	initDataUnsafe?: {
+		user: IWebAppUser
+	}
+	initData?: string
+	ready: () => void
+	setHeaderColor: (color: string) => void
+	setBackgroundColor: (color: string) => void
+	expand: () => void
+	BackButton: {
+		show: () => void
+		hide: () => void
+	}
+}
+
+const TelegramContext = createContext<ITelegramContext>({
 	user: null,
 	initData: ''
 })
@@ -26,19 +42,32 @@ interface Props {
 }
 
 export function TelegramProvider({ children }: Props) {
+	const [webApp, setWebApp] = useState<IWebApp | null>(null)
+
 	useEffect(() => {
-		WebApp.ready()
+		if (typeof window === 'undefined') return
 
-		WebApp.setHeaderColor('secondary_bg_color')
-		WebApp.setBackgroundColor('bg_color')
+		const initWebApp = async () => {
+			const WebApp = (await import('@twa-dev/sdk')).default
+			setWebApp(WebApp as IWebApp)
+		}
 
-		WebApp.expand()
+		initWebApp()
+	}, [])
+
+	useEffect(() => {
+		if (!webApp) return
+
+		webApp.ready()
+		webApp.setHeaderColor('secondary_bg_color')
+		webApp.setBackgroundColor('bg_color')
+		webApp.expand()
 
 		const handleUrlChange = () => {
 			if (window.location.pathname !== '/') {
-				WebApp.BackButton.show()
+				webApp.BackButton.show()
 			} else {
-				WebApp.BackButton.hide()
+				webApp.BackButton.hide()
 			}
 		}
 
@@ -48,11 +77,11 @@ export function TelegramProvider({ children }: Props) {
 		return () => {
 			window.removeEventListener('popstate', handleUrlChange)
 		}
-	}, [])
+	}, [webApp])
 
 	const contextValue = {
-		user: (WebApp as any).initDataUnsafe?.user || null,
-		initData: (WebApp as any).initData || ''
+		user: webApp?.initDataUnsafe?.user || null,
+		initData: webApp?.initData || ''
 	}
 
 	return <TelegramContext.Provider value={contextValue}>{children}</TelegramContext.Provider>
