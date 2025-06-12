@@ -11,7 +11,9 @@ import { Button } from '@/ui/button/Button'
 import { ROUTES } from '@/config/routes.config'
 
 import { useProject } from '@/hooks/projects/useProject'
-import { useDeleteTask, useGetTasks, useToggleTask } from '@/hooks/useTasks'
+import { useDeleteTask } from '@/hooks/tasks/useDeleteTask'
+import { useGetTasks } from '@/hooks/tasks/useGetTasks'
+import { useToggleTask } from '@/hooks/tasks/useToggleTask'
 
 interface ProjectDetailsProps {
 	projectId: string
