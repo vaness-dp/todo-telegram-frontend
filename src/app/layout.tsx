@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { SUSE } from 'next/font/google'
+import Script from 'next/script'
 
 import { Providers } from '@/providers/Providers'
 import { TelegramProvider } from '@/providers/TelegramProvider'
@@ -31,7 +32,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<head>
-				<script src="https://telegram.org/js/telegram-web-app.js" />
+				<Script
+					src="https://telegram.org/js/telegram-web-app.js"
+					strategy="beforeInteractive"
+				/>
 			</head>
 			<body className={suse.variable}>
 				<TelegramProvider>
