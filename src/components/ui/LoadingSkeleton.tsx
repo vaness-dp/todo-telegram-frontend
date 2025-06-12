@@ -31,7 +31,7 @@ export function LoadingSkeleton({
 					key={i}
 					variants={fadeIn}
 					transition={{ duration: 0.3 }}
-					className={cn('rounded-2xl bg-bg-secondary/50 p-4', itemClassName)}
+					className={cn('rounded-2xl bg-bg-secondary/50 p-4 min-h-[122px] min-w-78', itemClassName)}
 				/>
 			))}
 		</m.div>
