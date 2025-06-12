@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { SUSE } from 'next/font/google'
 
 import { Providers } from '@/providers/Providers'
+import { TelegramProvider } from '@/providers/TelegramProvider'
 
 import './globals.css'
 
@@ -29,10 +30,15 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
+			<head>
+				<script src="https://telegram.org/js/telegram-web-app.js" />
+			</head>
 			<body className={suse.variable}>
-				<Providers>
-					<main className="min-h-screen bg-bg-primary text-text-primary">{children}</main>
-				</Providers>
+				<TelegramProvider>
+					<Providers>
+						<main className="min-h-screen bg-bg-primary text-text-primary">{children}</main>
+					</Providers>
+				</TelegramProvider>
 			</body>
 		</html>
 	)
