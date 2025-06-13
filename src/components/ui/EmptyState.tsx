@@ -22,7 +22,7 @@ export function EmptyState({ title, description, className }: Props) {
 		>
 			<m.div variants={fadeIn}>
 				<ListTodo className="mb-4 h-12 w-12 text-text-secondary" />
-				<h3 className="text-lg font-semibold text-text-primary">{title}</h3>
+				<h2 className="text-lg font-semibold text-text-primary">{title}</h2>
 				<p className="mt-1 text-sm text-text-secondary">{description}</p>
 			</m.div>
 		</m.div>

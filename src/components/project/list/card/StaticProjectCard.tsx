@@ -19,7 +19,7 @@ export function StaticProjectCard({ title, description, tasksCount, onDelete, cl
 	return (
 		<div className={cn('card-base hover:scale-[1.02] active:scale-[0.98]', className)}>
 			<div className="mb-2 flex items-start justify-between gap-2">
-				<h3 className="text-lg font-semibold text-text-primary">{title}</h3>
+				<h2 className="text-lg font-semibold text-text-primary">{title}</h2>
 				{onDelete && (
 					<button
 						onClick={onDelete}

@@ -47,6 +47,7 @@ export function TaskCard({
 						)}
 						whileHover={{ scale: 1.1 }}
 						whileTap={{ scale: 0.9 }}
+						aria-label="Mark task as completed"
 					>
 						{completed && <Check className="h-3 w-3 text-white" />}
 					</m.button>
@@ -87,6 +88,7 @@ export function TaskCard({
 						className="text-text-secondary transition-colors hover:text-priority-high"
 						whileHover={{ scale: 1.1 }}
 						whileTap={{ scale: 0.9 }}
+						aria-label="Close"
 					>
 						<X className="h-5 w-5" />
 					</m.button>

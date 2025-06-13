@@ -10,32 +10,27 @@ export function useProject(id: string) {
 	return useQuery<IProject>({
 		queryKey: projectKeys.detail(id),
 		queryFn: async () => {
-			const { data: projectResponse } = await projectService.getById(id)
-			const project = projectResponse.data
+			const [projectResponse, tasksResponse] = await Promise.all([
+				projectService.getById(id),
+				taskService.getAll(id).catch(error => {
+					console.error(`Failed to fetch tasks for project ${id}:`, error)
+					return { data: { data: [] } }
+				})
+			])
 
-			try {
-				const { data: tasksResponse } = await taskService.getAll(id)
-				const tasks = tasksResponse.data
+			const project = projectResponse.data.data
+			const tasks = tasksResponse.data.data
 
-				return {
-					...project,
-					tasks,
-					tasksCount: {
-						total: tasks.length,
-						completed: tasks.filter(task => task.completed).length
-					}
-				}
-			} catch (error) {
-				console.error(`Failed to fetch tasks for project ${id}:`, error)
-				return {
-					...project,
-					tasks: [],
-					tasksCount: {
-						total: 0,
-						completed: 0
-					}
+			return {
+				...project,
+				tasks,
+				tasksCount: {
+					total: tasks.length,
+					completed: tasks.filter(task => task.completed).length
 				}
 			}
-		}
+		},
+		staleTime: 30 * 1000, // 30 seconds
+		gcTime: 5 * 60 * 1000 // 5 minutes
 	})
 }

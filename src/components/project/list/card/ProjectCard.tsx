@@ -37,18 +37,19 @@ export function ProjectCard({
 			whileTap={{ scale: 0.98 }}
 		>
 			<div className="mb-2 flex items-start justify-between gap-2">
-				<m.h3
+				<m.h2
 					className="text-lg font-semibold text-text-primary"
 					layout
 				>
 					{title}
-				</m.h3>
+				</m.h2>
 				{onDelete && (
 					<m.button
 						onClick={onDelete}
 						className="text-text-secondary transition-colors hover:text-priority-high"
 						whileHover={{ scale: 1.1 }}
 						whileTap={{ scale: 0.9 }}
+						aria-label="Close"
 					>
 						<X className="h-5 w-5" />
 					</m.button>
