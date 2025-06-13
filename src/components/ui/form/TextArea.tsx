@@ -1,5 +1,5 @@
 import cn from 'clsx'
-import type { TextareaHTMLAttributes } from 'react'
+import { type TextareaHTMLAttributes, useId } from 'react'
 
 import type { IField } from '@/types/form.types'
 
@@ -13,13 +13,18 @@ export function TextArea({
 	registration,
 	fullWidth = true,
 	className,
+	id,
 	...props
 }: Props) {
+	const generatedId = useId()
+	const fieldId = id || generatedId
+
 	return (
 		<FormField
 			label={label}
 			error={error}
 			fullWidth={fullWidth}
+			id={fieldId}
 		>
 			<textarea
 				className={cn(
@@ -28,6 +33,7 @@ export function TextArea({
 					fullWidth && 'input-full-width',
 					className
 				)}
+				id={fieldId}
 				{...registration}
 				{...props}
 			/>
